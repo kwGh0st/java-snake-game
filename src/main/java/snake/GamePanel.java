@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -25,39 +26,59 @@ public class GamePanel extends JPanel implements ActionListener {
     private Random random;
 
     public GamePanel() {
-
+        random = new Random();
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setBackground(Color.black);
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+        startGame();
     }
 
-    public void startGame() {
+    private void startGame() {
+        newApple();
+        running = true;
+        timer = new Timer(DELAY, this);
+        timer.start();
+    }
+
+    private void newApple() {
 
     }
 
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g);
+    }
+
+    private void draw(Graphics g) {
+        for (int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
+            g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
+            g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH,i * UNIT_SIZE);
+        }
+    }
+
+    private void move() {
 
     }
 
-    public void draw(Graphics g) {
+    private void checkApple() {
 
     }
 
-    public void move() {
+    private void checkCollisions() {
 
     }
 
-    public void checkApple() {
-
-    }
-
-    public void checkCollisions() {
-
-    }
-
-    public void gameOver(Graphics g) {
+    private void gameOver(Graphics g) {
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+    private static class MyKeyAdapter extends KeyAdapter {
 
     }
 }
